@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wh.dao.BannerDao">
+
+    <resultMap type="com.wh.entity.Banner" id="BannerMap">
+        <result property="bId" column="b_id" jdbcType="INTEGER"/>
+        <result property="bannerUrl" column="banner_url" jdbcType="VARCHAR"/>
+        <result property="isShow" column="is_show" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BannerMap">
+        select
+          b_id, banner_url, is_show
+        from driver.banner
+        where b_id = #{bId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAll" resultMap="BannerMap">
+        select
+          b_id, banner_url, is_show
+        from driver.banner
+
+    </select>
+
+<!--    &lt;!&ndash;通过实体作为筛选条件查询&ndash;&gt;-->
+<!--    <select id="queryAll" resultMap="BannerMap">-->
+<!--        select-->
+<!--        b_id, banner_url, is_show-->
+<!--        from driver.banner-->
+<!--        <where>-->
+<!--            <if test="bId != null">-->
+<!--                and b_id = #{bId}-->
+<!--            </if>-->
+<!--            <if test="bannerUrl != null and bannerUrl != ''">-->
+<!--                and banner_url = #{bannerUrl}-->
+<!--            </if>-->
+<!--            <if test="isShow != null">-->
+<!--                and is_show = #{isShow}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--    </select>-->
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="bId" useGeneratedKeys="true">
+        insert into driver.banner(banner_url, is_show)
+        values (#{bannerUrl}, #{isShow})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="bId" useGeneratedKeys="true">
+        insert into driver.banner(banner_url, is_show)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.bannerUrl}, #{entity.isShow})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="bId" useGeneratedKeys="true">
+        insert into driver.banner(banner_url, is_show)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.bannerUrl}, #{entity.isShow})
+        </foreach>
+        on duplicate key update
+        banner_url = values(banner_url) , is_show = values(is_show)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update driver.banner
+        <set>
+            <if test="bannerUrl != null and bannerUrl != ''">
+                banner_url = #{bannerUrl},
+            </if>
+            <if test="isShow != null">
+                is_show = #{isShow},
+            </if>
+        </set>
+        where b_id = #{bId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from driver.banner where b_id = #{bId}
+    </delete>
+
+</mapper>
+

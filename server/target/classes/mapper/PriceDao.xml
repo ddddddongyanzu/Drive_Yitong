@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wh.dao.PriceDao">
+
+    <resultMap type="com.wh.entity.Price" id="PriceMap">
+        <result property="pId" column="p_id" jdbcType="INTEGER"/>
+        <result property="price" column="price" jdbcType="DECIMAL"/>
+        <result property="imgUrl" column="img_url" jdbcType="VARCHAR"/>
+        <result property="des" column="des" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PriceMap">
+        select
+          p_id, price, img_url,des
+        from driver.price
+        where p_id = #{pId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAll" resultMap="PriceMap">
+        select
+          p_id, price, img_url,des
+        from driver.price
+
+    </select>
+
+<!--    &lt;!&ndash;通过实体作为筛选条件查询&ndash;&gt;-->
+<!--    <select id="queryAll" resultMap="PriceMap">-->
+<!--        select-->
+<!--        p_id, price, img_url-->
+<!--        from driver.price-->
+<!--        <where>-->
+<!--            <if test="pId != null">-->
+<!--                and p_id = #{pId}-->
+<!--            </if>-->
+<!--            <if test="price != null">-->
+<!--                and price = #{price}-->
+<!--            </if>-->
+<!--            <if test="imgUrl != null and imgUrl != ''">-->
+<!--                and img_url = #{imgUrl}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--    </select>-->
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="pId" useGeneratedKeys="true">
+        insert into driver.price(price, img_url,des)
+        values (#{price}, #{imgUrl},#{des})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="pId" useGeneratedKeys="true">
+        insert into driver.price(price, img_url,des)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.price}, #{entity.imgUrl},#{entity.des})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="pId" useGeneratedKeys="true">
+        insert into driver.price(price, img_url)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.price}, #{entity.imgUrl})
+        </foreach>
+        on duplicate key update
+        price = values(price) , img_url = values(img_url)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update driver.price
+        <set>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="imgUrl != null and imgUrl != ''">
+                img_url = #{imgUrl},
+            </if>
+            <if test="des != null">
+                des = #{des},
+            </if>
+        </set>
+        where p_id = #{pId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from driver.price where p_id = #{pId}
+    </delete>
+
+</mapper>
+

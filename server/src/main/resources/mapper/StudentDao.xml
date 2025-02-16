@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wh.dao.StudentDao">
+
+    <resultMap type="com.wh.entity.Student" id="StudentMap">
+        <result property="sId" column="s_id" jdbcType="INTEGER"/>
+        <result property="uId" column="u_id" jdbcType="INTEGER"/>
+        <result property="pId" column="p_id" jdbcType="INTEGER"/>
+        <result property="openid" column="openid" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="phoneNumber" column="phone_number" jdbcType="VARCHAR"/>
+        <result property="cardNumber" column="card_number" jdbcType="VARCHAR"/>
+        <result property="carType" column="car_type" jdbcType="INTEGER"/>
+        <result property="address" column="address" jdbcType="VARCHAR"/>
+        <result property="registerTime" column="register_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="payAmount" column="pay_amount" jdbcType="NUMERIC"/>
+    </resultMap>
+
+    <select id="selectMyStudent" resultMap="StudentMap">
+    select * from `student`
+    where p_id=#{pId}
+    </select>
+
+    <!--全局模糊搜索-->
+    <select id="selectAllByCondition" resultMap="StudentMap">
+        SELECT * FROM `student`
+        WHERE
+        CONCAT(IFNULL(`name`,''),IFNULL(`phone_number`,''),IFNULL(`card_number`,''),IFNULL(`address`,''))
+        LIKE CONCAT("%",#{keywords},"%")
+    </select>
+
+    <!--查询数量-->
+    <select id="queryCount" resultType="integer">
+        select count(s_id) from student
+    </select>
+
+    <!--查询单个-->
+    <select id="queryByUId" resultMap="StudentMap">
+        select
+          s_id, u_id, p_id, openid, name, phone_number, card_number, car_type, address, register_time, pay_amount
+        from driver.student
+        where u_id = #{uId}
+    </select>
+
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="StudentMap">
+        select
+          s_id, u_id, p_id, openid, name, phone_number, card_number, car_type, address, register_time, pay_amount
+        from driver.student
+        where s_id = #{sId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="StudentMap">
+        select
+          s_id, u_id, p_id, openid, name, phone_number, card_number, car_type, address, register_time, pay_amount
+        from driver.student
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="StudentMap">
+        select
+        s_id, u_id, p_id, openid, name, phone_number, card_number, car_type, address, register_time, pay_amount
+        from driver.student
+        <where>
+            <if test="sId != null">
+                and s_id = #{sId}
+            </if>
+            <if test="uId != null">
+                and u_id = #{uId}
+            </if>
+            <if test="pId != null">
+                and p_id = #{pId}
+            </if>
+            <if test="openid != null and openid != ''">
+                and openid = #{openid}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="phoneNumber != null and phoneNumber != ''">
+                and phone_number = #{phoneNumber}
+            </if>
+            <if test="cardNumber != null and cardNumber != ''">
+                and card_number = #{cardNumber}
+            </if>
+            <if test="carType != null">
+                and car_type = #{carType}
+            </if>
+            <if test="address != null and address != ''">
+                and address = #{address}
+            </if>
+            <if test="registerTime != null">
+                and register_time = #{registerTime}
+            </if>
+            <if test="payAmount != null">
+                and pay_amount = #{payAmount}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="sId" useGeneratedKeys="true">
+        insert into driver.student(u_id, p_id, openid, name, phone_number, card_number, car_type, address, register_time, pay_amount)
+        values (#{uId}, #{pId}, #{openid}, #{name}, #{phoneNumber}, #{cardNumber}, #{carType}, #{address}, #{registerTime}, #{payAmount})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="sId" useGeneratedKeys="true">
+        insert into driver.student(u_id, p_id, openid, name, phone_number, card_number, car_type,
+        address, register_time, pay_amount)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.uId}, #{entity.pId}, #{entity.openid}, #{entity.name}, #{entity.phoneNumber},
+            #{entity.cardNumber}, #{entity.carType}, #{entity.address}, #{entity.registerTime}, #{entity.payAmount})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="sId" useGeneratedKeys="true">
+        insert into driver.student(u_id, p_id, openid, name, phone_number, card_number, car_type,
+        address, register_time, pay_amount)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.uId}, #{entity.pId}, #{entity.openid}, #{entity.name}, #{entity.phoneNumber},
+            #{entity.cardNumber}, #{entity.carType}, #{entity.address}, #{entity.registerTime}, #{entity.payAmount})
+        </foreach>
+        on duplicate key update
+        u_id = values(u_id) , p_id = values(p_id) , openid = values(openid) , name = values(name) , phone_number =
+        values(phone_number) , card_number = values(card_number) , car_type = values(car_type) , address =
+        values(address) , register_time = values(register_time) , pay_amount = values(pay_amount)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update driver.student
+        <set>
+            <if test="uId != null">
+                u_id = #{uId},
+            </if>
+            <if test="pId != null">
+                p_id = #{pId},
+            </if>
+            <if test="openid != null and openid != ''">
+                openid = #{openid},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="phoneNumber != null and phoneNumber != ''">
+                phone_number = #{phoneNumber},
+            </if>
+            <if test="cardNumber != null and cardNumber != ''">
+                card_number = #{cardNumber},
+            </if>
+            <if test="carType != null">
+                car_type = #{carType},
+            </if>
+            <if test="address != null and address != ''">
+                address = #{address},
+            </if>
+            <if test="registerTime != null">
+                register_time = #{registerTime},
+            </if>
+            <if test="payAmount != null">
+                pay_amount = #{payAmount},
+            </if>
+        </set>
+        where s_id = #{sId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from driver.student where s_id = #{sId}
+    </delete>
+
+</mapper>
+
