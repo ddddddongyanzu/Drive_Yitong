@@ -1,0 +1,28 @@
+<view class="share">
+  <view class="tips_view"><text class="tips_text">正确输入才能发布哟~</text></view>
+  <view class="tips_view"><text class="tips_text">不要超过自己的底价哟~</text>
+  </view>
+  <view class="tips_view"><text class="tips_text">您的最大优惠报名价格为：￥{{basePrice}}</text>
+  </view>
+  <view class='list'>
+    <view class='name'>
+      <text>C1价格</text>
+      <input name="name" type='digit' placeholder-style='font-size:28rpx;' maxlength="6" style="height: 100%"
+        data-modal="1" :value="{{c1_price}}" bindinput="handleInputChange"></input>
+      <text>元</text>
+      <text style="color:red" wx:if="{{!is_correct}}">！</text>
+      <text style="color:#07c160" wx:if="{{is_correct}}">√</text>
+    </view>
+    <view class='name'>
+      <text>C2价格</text>
+      <input name="phoneNumber" type='digit' placeholder-style='font-size:28rpx;' maxlength="6" style="height: 100%"
+        data-modal="2" :value="{{c2_price}}" bindinput="handleInputChange"></input>
+      <text>元</text>
+      <text style="color:red" wx:if="{{!is_correct}}">！</text>
+      <text style="color:#07c160" wx:if="{{is_correct}}">√</text>
+    </view>
+    <text class="message_text" wx:if="{{!is_correct}}">{{error_message}}</text>
+    <text class="message_text_correct" wx:if="{{is_correct}}">{{success_message}}</text>
+    <button type="primary" open-type="share" disabled="{{!is_correct}}">立即分享</button>
+  </view>
+</view>

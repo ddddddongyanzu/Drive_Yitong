@@ -1,0 +1,115 @@
+<view class="container">
+    <view class="userinfo">
+        <view class='head-wrap' wx:if="{{!hasUserInfo}}" bindtap='login'>
+            <view class="no-login-avatar">
+                <view class='no-avatar'>
+                    <image class='avatar' src="https://z3.ax1x.com/2021/04/23/cX8mCt.jpg"></image>
+                </view>
+                <view class='btn-login'>点我登录</view>
+            </view>
+        </view>
+        <!-- <view class='head-wrap' wx:else bindtap='goProfile'> -->
+            <view class='head-wrap' wx:else>
+            <view class="head-l">
+                <view class='l'>
+                    <image class='avatar' src="{{userInfo.avatarUrl}}"></image>
+                </view>
+                <view class='r'>
+                    <view class='t'>
+                        <view class='name'>{{userInfo.nickName}}</view>
+                    </view>
+                </view>
+            </view>
+            <view class="head-r">
+                <view class="arrow"></view>
+            </view>
+        </view>
+    </view>
+
+    <view class="order-container">
+        <view class='header' data-index='0' bindtap='toOrderListTap'  wx:if="{{userInfo.role==1}}">
+            <view class='top-title'>
+                <view class='left-line'></view>
+                <view class='text'>优惠券发布</view>
+            </view>
+            <view class='see-more'>
+                <view class="text">点击发布优惠券</view>
+                <view class="arrow"></view>
+            </view>
+        </view>
+
+        <mp-dialog title="优惠价格" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{button}}">
+            <mp-form class="form" id="form" rules="{{rules}}" models="{{formData}}">
+                <mp-cells  footer="只有代理人有权限发放优惠">
+                    <mp-cell prop="c1" title="c1" ext-class="">
+                        <input bindinput="InputPrice" data-field="c1" class="weui-input" type="digit" placeholder="请输入优惠价格"/>
+                    </mp-cell>
+                    <mp-cell prop="c2" title="c2" ext-class="">
+                        <input bindinput="InputPrice" data-field="c2" class="weui-input" type="digit"  placeholder="请输入优惠价格"/>
+                    </mp-cell>
+                </mp-cells>
+            </mp-form>
+        </mp-dialog>
+        
+        <view class='header' data-index='2' bindtap="myRegister">
+            <view class='top-title'>
+                <view class='left-line'></view>
+                <view class='text'>我的报名</view>
+            </view>
+            <view class='see-more'>
+                <view class="text">查看报名状态</view>
+                <view class="arrow"></view>
+            </view>
+        </view>
+
+        
+        <!-- role==0普通用户 role==1代理人 -->
+        <view class='header' data-index='1' wx:if="{{userInfo.role==1}}" bindtap="myStudent">
+            <view class='top-title'>
+                <view class='left-line'></view>
+                <view class='text'>我的客户</view>
+            </view>
+            <view class='see-more'>
+                <view class="text">查看我的客户</view>
+                <view class="arrow"></view>
+            </view>
+        </view>
+
+        
+
+
+        <view class='header' data-index='3' bindtap="create_discount_link" wx:if="{{userInfo.role==1}}">
+            <view class='top-title'>
+                <view class='left-line'></view>
+                <view class='text'>优惠发布</view>
+            </view>
+            <view class='see-more'>
+                <view class="text">点击进入</view>
+                <view class="arrow"></view>
+            </view>
+        </view>
+
+        <view class="menu" bindtap="bindMyHistory" >
+            <view class="left">
+            <image class="icon" style="background-color: #eeeeee;" mode="aspectFill" src="http://file.xiaomutong.com.cn/20200206/recordicon.png"></image>
+            <text class="title">答题记录</text>
+            </view>
+            <view class="arraw">></view>
+        </view>  
+
+        <view class="menu" bindtap="bindMyStudy" >
+            <view class="left">
+            <image class="icon" style="background-color: #eeeeee;" mode="aspectFill" src="http://file.xiaomutong.com.cn/20200206/listicon.png"></image>
+            <text class="title">错题记录</text>
+            </view>
+            <view class="arraw">></view>
+        </view>   
+                 
+      
+
+
+    </view>
+     <view  wx:if="{{hasUserInfo}}" class="login_out">
+      <button bindtap="loginOut" type="warn">退出登录</button>
+    </view>
+</view>

@@ -1,0 +1,24 @@
+<view class="container">
+  <movable-area>
+    <swiper autoplay interval="3000" circular indicator-dots>
+      <block wx:for="{{banners}}"  wx:key="bid" wx:for-item="item">
+        <swiper-item wx:if="{{item.isShow == 1}}">
+          <image mode="widthFix" src="{{item.bannerUrl}}"/>
+        </swiper-item>
+      </block>
+    </swiper>
+
+    <view class="signup-wrapper" wx:for="{{prices}}" wx:for-item="item" wx:key="pId">
+      <view class="img">
+        <image mode="aspectFill" src="{{item.imgUrl}}"></image>
+      </view>
+      <view class="right">
+        <view class="tag">{{item.des}}</view>
+        <view class="line"></view>
+        <view class="price">价格:  ¥{{item.price}}</view>
+        <button bindtap="sign" type="primary" data-index="{{index+1}}">立即报名</button>
+      </view>
+    </view>
+    <!-- <movable-view  x="{{movableViewX}}" y="{{movableViewY}}" direction="all" bindtap="scanItems">扫码优惠</movable-view> -->
+  </movable-area>
+</view>

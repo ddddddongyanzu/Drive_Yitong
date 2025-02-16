@@ -1,0 +1,66 @@
+<view class='baseInfo'>
+  <form bindsubmit="formSubmit">
+    <view class='list'>
+      <view class='name'>
+        <text>姓名</text>
+        <input name="name" type='text' placeholder-style='font-size:28rpx;' placeholder='请输入您的姓名'
+          style="height: 100%" bindblur="formCheck" data-num="1"></input>
+      </view>
+
+      <view class='name'>
+        <text>电话</text>
+        <input name="phoneNumber" type='number' placeholder-style='font-size:28rpx;' placeholder='请输入您的手机号'
+          maxlength="11" style="height: 100%" bindblur="formCheck" data-num="2"></input>
+      </view>
+
+      <view class='name'>
+        <text>现居地</text>
+        <input name="address" type='text' placeholder-style='font-size:28rpx;' placeholder='请输入地址' bindinput="formCheck"
+          style="height: 100%;" value="{{address}}" data-num="3"></input>
+        <!-- <view class="location">
+          <image src="../../images/location.png" bindtap="getLocation"></image>
+        </view> -->
+      </view>
+
+      <view class='name'>
+        <text>类别</text>
+        <radio-group class="radio-group" bindchange="radioChange">
+          <label class="radio">
+            <radio value="{{prices[0].pId}}" checked="{{car_type==1}}" />{{prices[0].des}}
+          </label>
+          <label class="radio">
+            <radio value="{{prices[1].pId}}" checked="{{car_type==2}}" />{{prices[1].des}}
+          </label>
+        </radio-group>
+      </view>
+
+      <view wx:if="{{car_type!=0}}">
+        <text>原价:￥{{original_price}}</text>
+      </view>
+
+      <view class="total_price" wx:if="{{car_type!=0}}" style="display:{{isDisplay}};color:red">优惠价:￥{{current_price}}
+      </view>
+      <button form-type='submit' type="primary">立即报名</button>
+
+      <view class="red_packet" wx:if="{{red_packet_open}}">
+        <image src="/images/red_packet.png" bindtap="close"></image>
+      </view>
+
+
+
+    </view>
+  </form>
+</view>
+
+<!-- <text>c1的优惠价是：￥{{c1_price}}</text>
+<text>c2的优惠价是：￥{{c2_price}}</text> -->
+
+<!-- <text>{{JSON.stringify(option)}}</text> -->
+
+<!-- 模态框 -->
+<modal class="modal" title='请确认您的报名信息是否正确' hidden="{{modalHidden}}" bindcancel='modalCancel' bindconfirm='modalConfirm'>
+  <view>姓名:{{information.name}}</view>
+  <view>电话:{{information.phoneNumber}}</view>
+  <view>现居地:{{information.address}}</view>
+  <view>类别:C{{car_type}}</view>
+</modal>

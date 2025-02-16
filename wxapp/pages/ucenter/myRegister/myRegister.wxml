@@ -1,0 +1,43 @@
+<!--pages/myRegister/myRegister.wxml-->
+<view>
+  <form bindsubmit="formSubmit">
+    <view class="tip_view">
+      <text class="tip">您已报名成功！报名信息如下:</text>
+    </view>
+    <view class='name'>
+      <text>姓名:</text>
+      <input name="name"  disabled="true" value="{{student.name}}"></input>
+    </view>
+    <view class='name'>
+      <text>电话:</text>
+      <input name="phoneNumber"  disabled="true" value="{{student.phoneNumber}}"></input>
+    </view>
+
+    <!-- <view class='name'>
+    <text>身份证号码:</text>
+    <input value="{{student.cardNumber}}"></input>
+  </view> -->
+
+    <view class='name'>
+      <text>类别:</text>
+      <input name="carType"  disabled="true" value="{{student.carType}}" placeholder="1代表C1手动挡，2代表C2自动挡"></input>
+    </view>
+
+    <view class='name'>
+      <text>地址:</text>
+      <input name="address" disabled="true" value="{{student.address}}"></input>
+    </view>
+
+    <view class='name'>
+      <text>报名时间:</text>
+      <input name="registerTime" disabled="true" value="{{student.registerTime}}"></input>
+    </view>
+
+    <view class='name'>
+      <text>支付金额:</text>
+      <input name="payAmount" disabled="true" value="￥{{student.payAmount}}"></input>
+    </view>
+
+    <button  type="primary" bindtap="update">申请修改</button>
+  </form>
+</view>

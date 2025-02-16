@@ -1,0 +1,62 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/ucenter/index/index",
+    "pages/ucenter/qrcode/qrcode",
+    "pages/logs/logs",
+    "pages/register/register",
+    "pages/ucenter/myRegister/myRegister",
+    "pages/ucenter/myStudent/myStudent",
+    "pages/ucenter/login/login",
+    "pages/ucenter/link/link",
+    "pages/home/home",
+    "pages/subject/subject",
+    "pages/question/question",
+    "pages/entry/entry",
+    "pages/score/score",
+    "pages/list/list",
+    "pages/view/view",
+    "pages/history/history",
+    "pages/look/look",
+    "pages/review/review",
+    "pages/simple/simple",
+    "pages/exam/exam",
+    "pages/examresult/examresult",
+    "pages/note/note",
+    "pages/study/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#4fa0eb",
+    "navigationBarTitleText": "熵盒",
+    "navigationBarTextStyle": "white"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "tabBar": {
+    "selectedColor": "#4fa0eb",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/home_a.png"
+      },
+      {
+        "pagePath": "pages/home/home",
+        "text": "答题",
+        "selectedIconPath": "icons/edit81x81.png",
+        "iconPath": "icons/edit81x81-2.png"
+      },
+      {
+        "pagePath": "pages/ucenter/index/index",
+        "text": "个人中心",
+        "iconPath": "images/my.png",
+        "selectedIconPath": "images/my_a.png"
+      }
+    ]
+  },
+  "useExtendedLib": {
+    "weui": true
+  }
+}

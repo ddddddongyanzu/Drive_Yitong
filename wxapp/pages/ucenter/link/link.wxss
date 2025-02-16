@@ -1,0 +1,67 @@
+/* pages/link/link.wxss */
+page{
+  background: #eee;
+  /* height: 1000rpx; */
+}
+.baseInfo{
+  padding:20rpx 10rpx;
+}
+
+.baseInfo text{
+  font-size: 30rpx;
+  color: #6f6f6f;
+}
+.share{
+  margin-top: 25%;
+  /* background-color: red; */
+  box-shadow:0px 0px 90rpx #DCDFE6;
+  height: 800rpx;
+  padding-top:45rpx;
+  border-radius: 80rpx;
+}
+
+.list{
+  color: #6f6f6f; 
+  font-size: 32rpx;
+}
+
+.name,.sex,.phone,.info{
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  padding: 20rpx;
+  border-bottom: 1rpx solid #eee;
+  width: 80%;
+  margin: 40rpx auto;
+  border-radius: 24rpx;
+}
+.name input,.phone input,.info input{
+  text-align:right;
+}
+
+button{
+  color: #fff;
+  width: 100%;
+  margin-top: 18rpx;
+}
+
+.tips_view{
+  text-align: center;
+}
+
+.tips_text{
+  color: #07c160;
+  font-size: 35rpx;
+}
+
+.message_text{
+  margin: 0 0 0 60rpx;
+  color: red;
+}
+
+.message_text_correct{
+  margin: 0 0 0 60rpx;
+  color: #07c160;
+}
